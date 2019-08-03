@@ -1,0 +1,101 @@
+<%-include("headermain")-%>
+  <body class="text-center">
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+          <div class="inner">
+            <h3 class="masthead-brand"><i class="far fa-credit-card"></i>&nbsp;SQpay</h3>
+            <nav class="nav nav-masthead justify-content-center">
+              <a class="nav-link text-white" href="/">Home</a>
+              <a class="nav-link text-white" href="/login">Login</a>
+           
+            </nav>
+          </div>
+        </header>
+  
+        <main role="main" class="inner cover" >
+               
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                                <label for="inputEmail4">Username</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Username" required>
+                              </div>
+                        </div>
+                        <div  class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" required name="password" id="password" placeholder="Password">
+                          </div>
+                       
+                     
+                                <div class="form-group col-md-6">
+                                  <label for="inputEmail4">Phone</label>
+                                  <input type="number" class="form-control" required name="phone" id="phone" placeholder="Contact no">
+                                </div>
+                            </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Department</label>
+                            <input type="text" class="form-control" required name = "dept" id="dept" placeholder="Department">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputState">Gender</label>
+                            <select id="gender" name ="gender" required class="form-control">
+                              <option selected>Male</option>
+                              <option>Female</option>
+                            </select>
+                          </div>
+                          </div>
+                       <center> <button type=button" onclick="send()" class="btn btn-primary">Sign in</button></center>
+                
+        </main>
+  
+        <footer class="mastfoot mt-auto">
+          <div class="inner">
+            <p class="text-white">Website created for <a href="https://chitkara.edu.in/">Chitkara</a> by <a class="text-primary" href="https://instagram.com/kalrapk00">@priyanshkalra</a> and <a class="text-primary" href="https://instagram.com/kalrapk00">@rohan</a>.</p>
+          </div>
+        </footer>
+      </div>
+  
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/notie"></script> 
+  <script>
+    function send(){
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let gender = document.getElementById("gender").value;
+        let phone = document.getElementById("phone").value;
+        let dept = document.getElementById("dept").value;
+        let name = document.getElementById("name").value;
+        if(email && password && gender && phone && dept && name){
+           $.ajax("/signup",{
+               type:"POST",
+               data:{
+                   email:email,
+                   password:password,
+                   gender:gender,
+                   phone:phone,
+                   dept:dept,
+                   name:name
+               },
+               success:(data)=>{if(data=="found") notie.alert({ type: 'error', text: 'Already registered' }); 
+               else notie.alert({ type: 'success', text: 'Id created', time: 2 }) 
+            }
+           })
+        }
+        else
+        {
+            notie.alert({ type: 'error', text: 'Filling all feilds is compulsory' });
+        }
+    
+
+    }
+  </script>
+</html>

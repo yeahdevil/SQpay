@@ -1,0 +1,66 @@
+<%-include("headermain")-%>
+  <body class="text-center">
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+          <div class="inner">
+            <h3 class="masthead-brand"><i class="far fa-credit-card"></i>&nbsp;SQpay</h3>
+            <nav class="nav nav-masthead justify-content-center">
+              <a class="nav-link text-white" href="/">Home</a>
+              <a class="nav-link text-white" href="#">Login</a>
+           
+            </nav>
+          </div>
+        </header>
+  
+        <main role="main" class="inner cover" >
+           
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                                <label for="inputEmail4">Password</label>
+                                <input type="Password" class="form-control" id="password" name="password" placeholder="Password" required>
+                              </div>
+                        </div>
+                        
+                       <center> <button type="button" onclick="send()" class="btn btn-primary">Sign in</button></center>
+                    
+        </main>
+  
+        <footer class="mastfoot mt-auto">
+          <div class="inner">
+            <p class="text-white">Website created for <a href="https://chitkara.edu.in/">Chitkara</a> by <a class="text-primary" href="https://instagram.com/kalrapk00">@priyanshkalra</a> and <a class="text-primary" href="https://instagram.com/kalrapk00">@rohan</a>.</p>
+          </div>
+        </footer>
+      </div>
+  
+  </body>
+   <!-- jquery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/notie"></script> 
+  <script>
+      function send(){
+         if(document.getElementById("email").value && document.getElementById("password").value)
+         {
+            $.ajax('/login',{
+        type:"POST",
+        data:{
+            "email":document.getElementById("email").value,
+           " password":document.getElementById("password").value
+        },
+        success:(data)=>{if(data=="notfound")notie.alert({ type: 'error', text: 'Oops! invalid credentials' })}
+         })
+         }
+         else{
+            notie.alert({ type: 'error', text: 'Fill both feilds' });
+         }
+       
+      }
+   
+  </script>
+</html>
